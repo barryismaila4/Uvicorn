@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: ecommerce_app
+    ports:
+      - "8000:8000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=AA0556563a
+      - MYSQL_DB=ecommerce
+    depends_on:
+      - mysql
+    networks:
+      - ecommerce_network
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: AA0556563a
+      MYSQL_DATABASE: ecommerce
+    ports:
+      - "3306:3306"
+    networks:
+      - ecommerce_network
+
+networks:
+  ecommerce_network:
+    driver: bridge
